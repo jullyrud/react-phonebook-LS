@@ -54,6 +54,21 @@ export class App extends Component {
     return this.state.contacts.filter(cont => cont.name.toLowerCase().includes(this.state.filter.toLowerCase()))
    }
   
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));  
+    }
+
+  }
+  componentDidMount() {
+    
+    const res = JSON.parse(localStorage.getItem('contacts'))
+    if (res) {
+      this.setState({ contacts: res })
+    }
+  
+  }
+  
 render()
   {
    return (
